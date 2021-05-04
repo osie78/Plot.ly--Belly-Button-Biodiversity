@@ -73,6 +73,12 @@ function plots(initial) {
      
   // Initialize the dashboard
   function init() {
+    
+    // d3.selectAll("#selDataset").on("change", updatePlotly);
+    
+    // function updatePlotly() {
+    
+    
     // Get data selecting from dropdown
     var selectDropdown = d3.select("#selDataset");
   
@@ -92,12 +98,8 @@ function plots(initial) {
       plots(sample);
       
     });
-    
-     // updates data
-    function update(newId) {
-    plots(newId);
-  };
-  
+
+   
  
    
   };
