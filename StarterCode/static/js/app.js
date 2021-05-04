@@ -20,7 +20,9 @@ function plots(initial) {
   
      //horizontal bar chart
   
-         
+        // var sortedBysampleValues=samples.sort((a,b) => b.sample_values-a.sample_values);
+        // slicedData= sortedBysampleValues.slice(0,10);     
+     
         var trace1= {
             x:sample_values,
             y:otu_ids.slice(0,10),
@@ -90,11 +92,13 @@ function plots(initial) {
       plots(sample);
       
     });
+    
+     // updates data
+    function update(newId) {
+    plots(newId);
   };
   
-  // updates data
-  function optionChanged(newSample) {
-    plots(newSample);
+ 
    
   };
 
