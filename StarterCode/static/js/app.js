@@ -20,13 +20,13 @@ function plots(initial) {
   
      //horizontal bar chart
   
-        // var sortedBysampleValues=samples.sort((a,b) => b.sample_values-a.sample_values);
-        // slicedData= sortedBysampleValues.slice(0,10);     
+      
      
         var trace1= {
-            x:sample_values,
-            y:otu_ids.slice(0,10),
-            text:otu_labels.slice(0,10),
+            x:sample_values.slice(0,10).reverse(),
+            // the next line converts the data to strings with the map function. The values are integer and must be converted to string...that's what the map function does.
+            y:otu_ids.slice(0,10).reverse().map(id=>`${id} otu_ids`),
+            text:otu_labels.slice(0,10).reverse(),
             type: "bar",
             orientation: "h"
         };
@@ -70,7 +70,9 @@ function plots(initial) {
  
    });
 }  
-     
+    
+function optionChanged(sample) {plots(sample)}
+
   // Initialize the dashboard
   function init() {
     
@@ -98,6 +100,8 @@ function plots(initial) {
       plots(sample);
       
     });
+
+    
 
    
  
