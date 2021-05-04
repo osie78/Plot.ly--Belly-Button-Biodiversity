@@ -1,20 +1,21 @@
 function plots(initial) {
     d3.json("samples.json").then((data) => {
-        var sampleData = data.samples;
+        
+        var sample = data.samples;
 
-        var buildingArray = sampleData.filter(x => x.id == initial);
+        var list = sample.filter(x => x.id == initial);
       
-        var result = buildingArray[0];
-        console.log(result)
+        var result = list[0];
+        console.log(result);
   
         var otu_ids = result.otu_ids;
-        console.log (otu_ids)
+        console.log (otu_ids);
   
         var otu_labels = result.otu_labels;
-        console.log(otu_labels)
+        console.log(otu_labels);
   
         var sample_values = result.sample_values;
-        console.log(sample_values)
+        console.log(sample_values);
   
   
      //horizontal bar chart
@@ -43,7 +44,7 @@ function plots(initial) {
 
     // Bubble Chart
         var layout2 = {
-            title: "Bacteria Cultures Per Sample",
+            title: "Bacteria per ID",
             hovermode: "closest",
             xaxis: { title: "OTU ID" }
         };
@@ -66,38 +67,14 @@ function plots(initial) {
              
  
    });
+}  
      
-     
-//       // Build a Bubble Chart
-//         var bubbleChart = {
-//         title: "Bacteria Cultures Per Sample",
-//         hovermode: "closest",
-//         xaxis: { title: "OTU ID" },
-//       };
-//       var bubbleData = [
-//         {
-//           x: otu_ids,
-//           y: sample_values,
-//           text: otu_labels,
-//           mode: "markers",
-//           marker: {
-//             size: sample_values,
-//             color: otu_ids,
-//             colorscale: "Earth"
-//           }
-//         }
-//       ];
-  
-//       Plotly.newPlot("bubble", bubbleData, bubbleChart);
-      
-      
-//   };
-  
+  // Initialize the dashboard
   function init() {
-    // Grab a reference to the dropdown select element
+    // Get data selecting from dropdown
     var selectDropdown = d3.select("#selDataset");
   
-    // Populate the select options by using the list of initial names
+    // Populating the dropdown menue by using the list of initial names
     d3.json("samples.json").then((data) => {
       var name = data.names;
   
@@ -109,18 +86,16 @@ function plots(initial) {
       })
   
       // Use the initial data from the list to build the plots
-      var sampleData = name[0];
-      plots(sampleData);
-      buildMetaData(sampleData);
+      var sample = name[0];
+      plots(sample);
+      
     });
   };
   
+  // updates data
   function optionChanged(newSample) {
-    // Fetch new data each time a new initial is selected
     plots(newSample);
-    buildMetaData(newSample);
+   
   };
-  
-  
-  // Initialize the dashboard
-  init()
+
+  init();
