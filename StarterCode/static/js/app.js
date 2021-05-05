@@ -24,7 +24,10 @@ function plots(initial) {
      
         var trace1= {
             x:sample_values.slice(0,10).reverse(),
+
             // the next line converts the data to strings with the map function. The values are integer and must be converted to string...that's what the map function does.
+            // otherwise it won't sort
+
             y:otu_ids.slice(0,10).reverse().map(id=>`${id} otu_ids`),
             text:otu_labels.slice(0,10).reverse(),
             type: "bar",
@@ -70,8 +73,38 @@ function plots(initial) {
  
    });
 }  
-    
-function optionChanged(sample) {plots(sample)}
+
+
+
+function demoInfo(sample) {
+    d3.json("samples.json").then((data) => {
+      var metadata = data.metadata;
+      console.log(metadata);
+
+    // Filter the data
+    var buildingArray = metadata.filter(sampleObj => sampleObj.id == sample);
+    var result = buildingArray[0];
+    // Use d3 to select the required panel
+    var info = d3.select("#sample-metadata");
+
+    // resets the table
+    info.html("");
+
+    // add each key and value 
+    Object.entries(result).forEach(([key, value]) => {
+      info.append("h6").text(`${key.toUpperCase()}: ${value}`);
+    });
+  });
+}
+
+
+
+
+//the html file is already wired up with the optionChanged and the .on function is not needed in this case (this is not recommended. It's better to use the .on("change") and then update)
+function optionChanged(sample) {
+    plots(sample);
+    demoInfo(sample);
+};
 
   // Initialize the dashboard
   function init() {
@@ -88,6 +121,7 @@ function optionChanged(sample) {plots(sample)}
     d3.json("samples.json").then((data) => {
       var name = data.names;
   
+    //   Using d3 to build the dropdown
       name.forEach((initial) => {
         selectDropdown
           .append("option")
@@ -95,9 +129,10 @@ function optionChanged(sample) {plots(sample)}
           .property("value", initial);
       })
   
-      // Use the initial data from the list to build the plots
+      // Use the initial data from the list to build the plots and populate the DemoInfo table
       var sample = name[0];
-      plots(sample);
+      plots(sample)
+      demoInfo(sample);
       
     });
 
