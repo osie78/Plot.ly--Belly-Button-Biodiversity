@@ -16,4 +16,4 @@ Additionally,  individuals were asked about their belly button was frequency per
 * Another function was created to populate the dropdown menu that allows selecting each tested individual. 
 
 
-### The html file only works under a local server environment. 
+### The html file only works under a local server environment. A screenshot of the working page can be found in the images folder as "capture.png"
