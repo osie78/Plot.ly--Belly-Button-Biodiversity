@@ -14,3 +14,6 @@ Additionally,  individuals were asked about their belly button was frequency per
 * A second function is created to populate the demographic table. 
 * A third function was coded to account for changes in the dropdown menu when selecting a different individual. 
 * Another function was created to populate the dropdown menu that allows selecting each tested individual. 
+
+
+### The html file only works under a local server environment. 
